@@ -1,0 +1,18 @@
+# Backend
+backend/target/
+backend/.env
+# Maven Wrapper (Maven baixado na primeira execução de mvnw.cmd)
+backend/.mvn/wrapper/*.jar
+backend/.mvn/wrapper/*.zip
+backend/.mvn/wrapper/apache-maven-*
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

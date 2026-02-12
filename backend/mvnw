@@ -1,0 +1,18 @@
+#!/bin/sh
+# Maven Wrapper script for Unix
+MAVEN_PROJECTBASEDIR="$(cd "$(dirname "$0")" && pwd)"
+WRAPPER_JAR="$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.jar"
+
+if [ ! -f "$WRAPPER_JAR" ]; then
+  echo "Downloading Maven Wrapper JAR..."
+  curl -sL -o "$WRAPPER_JAR" "https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.2.0/maven-wrapper-3.2.0.jar" || exit 1
+fi
+
+if [ -n "$JAVA_HOME" ]; then
+  JAVA_EXE="$JAVA_HOME/bin/java"
+else
+  JAVA_EXE="java"
+fi
+
+cd "$MAVEN_PROJECTBASEDIR"
+exec "$JAVA_EXE" -jar "$WRAPPER_JAR" "$@"
