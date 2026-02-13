@@ -16,7 +16,7 @@ if [ ! -x "$MVN_CMD" ]; then
   else
     wget -q -O "$MAVEN_ZIP" "$DISTRO_URL" || exit 1
   fi
-  (cd "$WRAPPER_DIR" && jar xf "$MAVEN_ZIP") || exit 1
+  unzip -q -o "$MAVEN_ZIP" -d "$WRAPPER_DIR" || exit 1
   rm -f "$MAVEN_ZIP"
   if [ ! -x "$MVN_CMD" ]; then
     echo "Failed to extract Maven."
