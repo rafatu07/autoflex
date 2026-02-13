@@ -1,0 +1,8 @@
+# Railway: backend (Quarkus) - root directory do serviço = backend
+[build]
+builder = "nixpacks"
+# Build: usa o script mvnw (baixa Maven se necessário). Não use -Pproduction se não existir no pom.
+[deploy]
+startCommand = "java -jar target/quarkus-app/quarkus-run.jar"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
