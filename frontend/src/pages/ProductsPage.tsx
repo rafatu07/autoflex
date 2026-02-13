@@ -13,6 +13,7 @@ import { fetchRawMaterialsAll } from '../store/slices/rawMaterialsSlice'
 import { Pagination } from '../components/Pagination'
 import type { ProductDTO, ProductRawMaterialItemDTO } from '../services/api'
 import type { RootState } from '../store'
+import { formatCurrencyBr } from '../utils/format'
 
 const PAGE_SIZE = 10
 const emptyProduct: ProductDTO = { code: '', name: '', value: 0, rawMaterials: [] }
@@ -243,7 +244,7 @@ export function ProductsPage() {
               <tr key={p.id}>
                 <td>{p.code}</td>
                 <td>{p.name}</td>
-                <td>{Number(p.value).toFixed(2)}</td>
+                <td>{formatCurrencyBr(Number(p.value))}</td>
                 <td>{(p.rawMaterials || []).length} item(ns)</td>
                 <td>
                   <button type="button" className="secondary" onClick={() => openEdit(p.id!)}>
@@ -271,7 +272,7 @@ export function ProductsPage() {
             </div>
             <div className="list-card-row">
               <span className="list-card-label">Valor</span>
-              <span>{Number(p.value).toFixed(2)}</span>
+              <span>{formatCurrencyBr(Number(p.value))}</span>
             </div>
             <div className="list-card-row">
               <span className="list-card-label">Matérias-primas</span>

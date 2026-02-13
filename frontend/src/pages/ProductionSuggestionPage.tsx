@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchProductionSuggestion } from '../store/slices/productionSuggestionSlice'
 import type { RootState } from '../store'
+import { formatCurrencyBr } from '../utils/format'
 
 export function ProductionSuggestionPage() {
   const dispatch = useDispatch()
@@ -59,8 +60,8 @@ export function ProductionSuggestionPage() {
                     <td>{item.productCode}</td>
                     <td>{item.productName}</td>
                     <td>{item.quantity}</td>
-                    <td>{Number(item.valuePerUnit).toFixed(2)}</td>
-                    <td>{Number(item.totalValue).toFixed(2)}</td>
+                    <td>{formatCurrencyBr(Number(item.valuePerUnit))}</td>
+                    <td>{formatCurrencyBr(Number(item.totalValue))}</td>
                   </tr>
                 ))}
               </tbody>
@@ -83,17 +84,17 @@ export function ProductionSuggestionPage() {
                 </div>
                 <div className="list-card-row">
                   <span className="list-card-label">Valor unitário</span>
-                  <span>{Number(item.valuePerUnit).toFixed(2)}</span>
+                  <span>{formatCurrencyBr(Number(item.valuePerUnit))}</span>
                 </div>
                 <div className="list-card-row">
                   <span className="list-card-label">Valor total</span>
-                  <span>{Number(item.totalValue).toFixed(2)}</span>
+                  <span>{formatCurrencyBr(Number(item.totalValue))}</span>
                 </div>
               </div>
             ))}
           </div>
           <p style={{ marginTop: '1rem', fontWeight: 600 }}>
-            Valor total: {Number(totalValue).toFixed(2)}
+            Valor total: {formatCurrencyBr(Number(totalValue))}
           </p>
         </>
       )}
