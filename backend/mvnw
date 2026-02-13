@@ -1,18 +1,29 @@
 #!/bin/sh
-# Maven Wrapper script for Unix
+# Maven Wrapper (somente script - baixa Maven e executa, sem JAR do wrapper)
 MAVEN_PROJECTBASEDIR="$(cd "$(dirname "$0")" && pwd)"
-WRAPPER_JAR="$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.jar"
+MAVEN_VERSION="3.9.6"
+DISTRO_URL="https://repo1.maven.org/maven2/org/apache/maven/apache-maven/${MAVEN_VERSION}/apache-maven-${MAVEN_VERSION}-bin.zip"
+WRAPPER_DIR="$MAVEN_PROJECTBASEDIR/.mvn/wrapper"
+MAVEN_DIR="$WRAPPER_DIR/apache-maven-$MAVEN_VERSION"
+MAVEN_ZIP="$WRAPPER_DIR/apache-maven-$MAVEN_VERSION-bin.zip"
+MVN_CMD="$MAVEN_DIR/bin/mvn"
 
-if [ ! -f "$WRAPPER_JAR" ]; then
-  echo "Downloading Maven Wrapper JAR..."
-  curl -sL -o "$WRAPPER_JAR" "https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.2.0/maven-wrapper-3.2.0.jar" || exit 1
-fi
-
-if [ -n "$JAVA_HOME" ]; then
-  JAVA_EXE="$JAVA_HOME/bin/java"
-else
-  JAVA_EXE="java"
+if [ ! -x "$MVN_CMD" ]; then
+  echo "Maven $MAVEN_VERSION not found. Downloading..."
+  mkdir -p "$WRAPPER_DIR"
+  if command -v curl >/dev/null 2>&1; then
+    curl -sL -o "$MAVEN_ZIP" "$DISTRO_URL" || exit 1
+  else
+    wget -q -O "$MAVEN_ZIP" "$DISTRO_URL" || exit 1
+  fi
+  unzip -q -o "$MAVEN_ZIP" -d "$WRAPPER_DIR" || exit 1
+  rm -f "$MAVEN_ZIP"
+  if [ ! -x "$MVN_CMD" ]; then
+    echo "Failed to extract Maven."
+    exit 1
+  fi
+  echo "Maven $MAVEN_VERSION ready."
 fi
 
 cd "$MAVEN_PROJECTBASEDIR"
-exec "$JAVA_EXE" -jar "$WRAPPER_JAR" "$@"
+exec "$MVN_CMD" "$@"
