@@ -1,4 +1,5 @@
-const API_BASE = '/api'
+// Em produção (Vercel), defina VITE_API_URL com a URL do backend (ex.: https://seu-backend.up.railway.app/api)
+const API_BASE = import.meta.env.VITE_API_URL ?? '/api'
 
 async function handleResponse<T>(res: Response): Promise<T> {
   const text = await res.text()

@@ -133,6 +133,30 @@ A interface está em português.
 
 ---
 
+## Frontend na Vercel + Backend no Railway
+
+**Frontend:** https://autoflex-teste.vercel.app  
+**Backend (API):** https://autoflex-production.up.railway.app
+
+### 1. Variável de ambiente na Vercel
+
+No projeto do frontend na Vercel:
+
+1. Abra **Settings** → **Environment Variables**.
+2. Crie uma variável:
+   - **Name:** `VITE_API_URL`
+   - **Value:** `https://autoflex-production.up.railway.app/api`
+   - Marque **Production** (e Preview se quiser).
+3. Salve e faça um **redeploy** (Deployments → ⋮ no último deploy → Redeploy) para a variável valer no build.
+
+### 2. CORS no backend
+
+O backend já aceita requisições de `https://autoflex-teste.vercel.app` (`quarkus.http.cors.origins` em `application.properties`). Se mudar o domínio do front, adicione-o nessa lista e faça novo deploy no Railway.
+
+Depois disso, o frontend na Vercel passa a chamar o backend no Railway e o app funciona em produção.
+
+---
+
 ## Estrutura do projeto
 
 - **backend/** — API Quarkus (JPA/Hibernate, PostgreSQL): CRUD de produtos e matérias-primas, associação produto–matéria-prima, endpoint de sugestão de produção, paginação nas listagens. Testes em `src/test/java/...` (JUnit 5 + Quarkus Test).
